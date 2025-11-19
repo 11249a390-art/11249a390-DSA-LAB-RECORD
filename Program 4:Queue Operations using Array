@@ -1,0 +1,72 @@
+**4.Queue operations using Array:**
+
+*Aim:*
+To implement a queue using an array and perform enqueue (insertion) and dequeue (deletion) operations.
+
+*Algorithm:*
+
+Enqueue Operation:
+1.Check if the queue is full (rear == SIZE-1). If yes, display "Queue Overflow".
+2.If the queue is empty (front == -1), set front = 0.
+3.Increment rear by 1.
+4.Insert the item at queue[rear].
+5.Display "Item inserted successfully".
+
+Dequeue Operation:
+1.Check if the queue is empty (front == -1). If yes, display "Queue Underflow".
+2.Store queue[front] in a variable item.
+3.If front == rear, set front = rear = -1 (queue becomes empty).
+4.Else, increment front by 1.
+5.Display "Deleted item: item".
+
+*Program:*
+#include <stdio.h>
+#define SIZE 5
+int queue[SIZE];
+int front = -1, rear = -1;
+void enqueue(int item) {
+    if (rear == SIZE - 1) {
+        printf("Queue overflow!\n");
+        return;
+    }
+    if (front == -1)
+        front = 0;
+    rear++;
+    queue[rear] = item;
+    printf("Item inserted Successfully: %d\n", item);
+}
+void dequeue() {
+    int item;
+    if (front == -1) {
+        printf("Queue underflow!\n");
+        return;
+    }
+    item = queue[front];
+    if (front == rear) {
+        front = rear = -1;
+    } else {
+        front++;
+    }
+    printf("Deleted item: %d\n", item);
+}
+int main() {
+    enqueue(10);
+    enqueue(20);
+    enqueue(30);
+    enqueue(40);
+    dequeue();
+    dequeue();
+    return 0;
+}
+
+*Output:*
+Item inserted Successfully: 10
+Item inserted Successfully: 20
+Item inserted Successfully: 30
+Item inserted Successfully: 40
+Deleted item: 10
+Deleted item: 20
+
+
+*Result:*
+The program successfully inserts 4 elements into the queue and deletes 2 elements from the front, maintaining the FIFO (First In First Out) principle of a queue.
