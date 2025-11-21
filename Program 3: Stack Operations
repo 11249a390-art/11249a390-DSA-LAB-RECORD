@@ -25,46 +25,64 @@ To implement a stack using an array in C and perform push and pop operations.
 
 *Program:*
 #include <stdio.h>
+
 int main() {
-    int TOP = -1, choice = 0;
+    int TOP = -1, choice = 0;   // TOP points to the top element of the stack
     int MAX, item;
+
+    // Ask user for the maximum size of the stack
     printf("Enter the stack size: ");
     scanf("%d", &MAX);
-    int stack[MAX];
+
+    int stack[MAX];             // Declare the stack with given size
+
+    // Menu runs until user chooses option 3
     while (choice != 3) {
+
+        // Display menu options
         printf("\n1. push\n2. pop\n3. exit\n");
         printf("choose your option: ");
         scanf("%d", &choice);
+
         switch (choice) {
-            case 1:
+
+            case 1: // Push operation
+                // Check if stack is full
                 if (TOP == MAX - 1) {
                     printf("stack is overflown\n");
                 } else {
                     printf("Enter the value to push: ");
                     scanf("%d", &item);
-                    TOP = TOP + 1;
-                    stack[TOP] = item;
+
+                    TOP = TOP + 1;    // Move TOP to next position
+                    stack[TOP] = item; // Insert item into stack
                 }
                 break;
-            case 2:
+
+            case 2: // Pop operation
+                // Check if stack is empty
                 if (TOP == -1) {
                     printf("stack underflow\n");
                 } else {
-                    item = stack[TOP];
-                    TOP = TOP - 1;
+                    item = stack[TOP]; // Get the top element
+                    TOP = TOP - 1;     // Remove the top element
                     printf("popped element is %d\n", item);
                 }
                 break;
-            case 3:
+
+            case 3: // Exit the program
                 printf("Exiting...\n");
                 break;
+
             default:
                 printf("Incorrect choice\n");
                 break;
         }
     }
-    return 0;
+
+    return 0; // End of program
 }
+
 
 *Output:*
 Enter the stack size: 3
