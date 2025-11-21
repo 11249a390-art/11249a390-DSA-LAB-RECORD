@@ -21,43 +21,63 @@ Dequeue Operation:
 
 *Program:*
 #include <stdio.h>
-#define SIZE 5
-int queue[SIZE];
-int front = -1, rear = -1;
+
+#define SIZE 5               // Maximum size of the queue
+
+int queue[SIZE];             // Array to store queue elements
+int front = -1, rear = -1;   // Front and rear pointers
+
+// Function to insert an element into the queue
 void enqueue(int item) {
+    // Check if queue is full
     if (rear == SIZE - 1) {
         printf("Queue overflow!\n");
         return;
     }
+
+    // If queue is empty, set front to 0
     if (front == -1)
         front = 0;
-    rear++;
-    queue[rear] = item;
+
+    rear++;                  // Move rear forward
+    queue[rear] = item;      // Insert the item
     printf("Item inserted Successfully: %d\n", item);
 }
+
+// Function to delete an element from the queue
 void dequeue() {
     int item;
+
+    // Check if queue is empty
     if (front == -1) {
         printf("Queue underflow!\n");
         return;
     }
-    item = queue[front];
+
+    item = queue[front];     // Get the front element
+
+    // If only one element was left, reset queue
     if (front == rear) {
         front = rear = -1;
     } else {
-        front++;
+        front++;             // Move front forward
     }
+
     printf("Deleted item: %d\n", item);
 }
+
 int main() {
-    enqueue(10);
+    enqueue(10);   // Insert elements
     enqueue(20);
     enqueue(30);
     enqueue(40);
+
+    dequeue();     // Remove two elements
     dequeue();
-    dequeue();
+
     return 0;
 }
+
 
 *Output:*
 Item inserted Successfully: 10
