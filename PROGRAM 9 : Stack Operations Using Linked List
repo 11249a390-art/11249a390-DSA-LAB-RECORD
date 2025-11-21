@@ -67,31 +67,47 @@ free temp
 #include <stdio.h>
 #include <stdlib.h>
 
+// Structure for a queue node (Circular Linked List)
 struct Node {
     int data;
     struct Node *next;
 };
 
+// Front and rear pointers for the circular queue
 struct Node *front = NULL;
 struct Node *rear = NULL;
 
+// Function to insert an element into the circular queue
 void enqueue(int x) {
-    struct Node newNode = (struct Node)malloc(sizeof(struct Node));
+
+    // Allocate memory for new node
+    struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
+
+    if (!newNode) {
+        printf("Memory allocation failed!\n");
+        return;
+    }
+
     newNode->data = x;
     newNode->next = NULL;
 
+    // If queue is empty
     if (front == NULL) {
-        front = rear = newNode;
-        rear->next = front;
-    } else {
-        rear->next = newNode;
-        rear = newNode;
-        rear->next = front;
+        front = rear = newNode;   // First element
+        rear->next = front;       // Make it circular
+    } 
+    else {
+        rear->next = newNode;     // Link old rear to new node
+        rear = newNode;           // Update rear pointer
+        rear->next = front;       // Maintain circular linking
     }
+
     printf("%d inserted\n", x);
 }
 
+// Function to delete an element from the circular queue
 void dequeue() {
+    // Check for empty queue
     if (front == NULL) {
         printf("Queue Underflow\n");
         return;
@@ -99,18 +115,21 @@ void dequeue() {
 
     struct Node *temp = front;
 
-    if (front == rear) { 
+    // If only one node is present
+    if (front == rear) {
         printf("%d deleted\n", front->data);
-        front = rear = NULL;
+        front = rear = NULL;      // Queue becomes empty
     } 
     else {
         printf("%d deleted\n", front->data);
-        front = front->next;
-        rear->next = front;
+        front = front->next;      // Move front pointer
+        rear->next = front;       // Maintain circular link
     }
-    free(temp);
+
+    free(temp);                   // Free deleted node
 }
 
+// Function to display all elements in the circular queue
 void display() {
     if (front == NULL) {
         printf("Queue is Empty\n");
@@ -120,6 +139,7 @@ void display() {
     struct Node *temp = front;
     printf("Circular Queue: ");
 
+    // Print elements until we loop back to front
     do {
         printf("%d ", temp->data);
         temp = temp->next;
@@ -132,11 +152,13 @@ int main() {
     int choice, x;
 
     while (1) {
+        // Menu for queue operations
         printf("\n1.Enqueue\n2.Dequeue\n3.Display\n4.Exit\n");
         printf("Enter choice: ");
         scanf("%d", &choice);
 
         switch (choice) {
+
             case 1:
                 printf("Enter value: ");
                 scanf("%d", &x);
@@ -150,16 +172,6 @@ int main() {
             case 3:
                 display();
                 break;
-
-            case 4:
-                printf("Exiting...\n");
-                return 0;
-
-            default:
-                printf("Invalid Choice\n");
-        }
-    }
-}
 
 
 ** SAMPLE OUTPUT** :
